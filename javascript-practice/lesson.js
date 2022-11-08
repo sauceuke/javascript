@@ -335,4 +335,113 @@ var johnDoe = new Person('John Doe', 32, 'Dentist');
 
 johnDoe.planet; // Earth
 johnDoe.introduction(); // I am a Dentist
- 
+
+// strings
+
+// JavaScript strings are a sequences of characters, JavaScript strings are immutable, strings are objects and have their own functions
+// we get the number of characters in a string using the length property, and access each character by its (0-based) index using charAt or array notation
+
+var name = 'toucan';
+name.length; // 6 (becuase there are 6 letters in the word toucan)
+name.charAt(3); //'c' (because c is the 3rd character)
+name[3]; // 'c'
+
+// remember, Javascript strings are immutable! (meaning i can't change them)
+
+var animal = 'cat';
+animal[0] = 'r';
+console.log(animal); // still "cat"
+
+// modifying strings -> will return a new string because they are immutable
+
+var friend = 'turtle';
+friend.toUpperCase(); // 'TURTLE'
+console.log(friend); // 'turtle'
+
+var message = ' hello everyone ';
+message = message.trim // 'hello, everyone'
+
+var myAnimal = 'cat'.concat('mouse');
+console.log(myAnimal); // 'catmouse'
+
+// searching strings
+// we can determine whether a string starts with, ends with, or includes other strings
+
+var msg = 'programming in JavaScript is fun';
+
+msg.startsWith('programming'); // true
+msg.startsWith('PROGRAMMING'); // false
+
+msg.endsWith('is fun'); // true
+msg.includes('JavaScript'); // true
+
+// we can also get the starting index of a contained substring
+
+var title = 'the title of my book';
+var start = title.search('title'); // 4
+start = title.search('banana'); // -1 
+
+// regular expressions
+// a regular expression is a pattern of characters, a string matches a regular expression if it adheres to the same pattern
+// (examples: consists of exactly three digits (0-9)), '123' matches, 'abc' does not match, '12' does not match, '12345' does not match
+
+// simple regular expression matching
+// we can pass a regular expression to the string's search function to see if it matches the pattern
+// in general, it is considered a match if any part of the string matches the regular expression
+
+var status = 'I am working VERY hard';
+status.search(/VERY/); // 13
+status.search(/very/); // -1
+status.search(/very/i); // 13
+
+// or we can use the regex's test function
+/script/.test('javascript is so much fun!'); // true
+
+// specifying ranges of characters
+
+var numbers = '5 8 2 5 7 6';
+numbers.search(/[012]/);  // 4
+/[012]/.test(numbers); // true 
+
+// or ranges of characters or special characters 
+
+var password = 'password4real';
+password.search(/[a-z]/); // 0 
+password.search(/\d/); // 0 
+
+// we can combine different ranges 
+
+var code = 'abc123d4e5'; 
+code.search(/[0-9] [a-z] [0-9]/); // 5
+
+// or look for characters not in a range
+
+var chars = 'abc123K56'; 
+chars.search(/[^0-9a-z]/); // 6
+
+// quantifiers 
+
+// we may want to know whether the string contains an option single occurence
+
+/[a-z][0-9]7[a-z]/.test('a1b'); // true
+/[a-z][0-9]7[a-z]/.test('abc'); // true 
+/[a-z][0-9]7[a-z]/.test('a123b'); // false 
+
+// or optional multiple occurences
+
+/[a-z][0-9]*[a-z]/.test('a123b');
+
+//startsWith and endsWith matches
+// regular expressions can tell us if a string contains a pattern, but we may want to know if the string starts or ends with the pattern
+
+/^[a-z][0-9]/.test['a1b']; // true
+/^[a-z][0-9]/.test('ab12'); // false 
+
+/[a-z][a-z]$/.test('123abc'); // true 
+/[a-z][a-z]$/.test('123abc456'); // false 
+
+// this lets us detect exact matches
+
+/^[a-z][0-9][a-z]$/.test['a1b']; // true
+/^[a-z][0-9][a-z]$/.test['a1b2c'];  // false 
+/^[a-z][0-9a-z]*[a-z]$/.test['a1b2c']; // true 
