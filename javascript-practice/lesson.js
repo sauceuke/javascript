@@ -291,7 +291,7 @@ function Person (name, age) { // prototype
     }
 }
 
-// The > this < keyword refers to the current object
+// The  this  keyword refers to the current object
 
 var johnDoe = new Person('John Doe', 32);
 johnDoe.greeting(); // Hello! My name is John Doe
@@ -299,150 +299,40 @@ johnDoe.greeting(); // Hello! My name is John Doe
 var janeDoe = new Person('Jane Doe', 28);
 janeDoe.greeting(); // Hello! My name is Jane Doe
 
-// the > new < keyword can be used to create new objects from the same prototype
+// the  new  keyword can be used to create new objects from the same prototype
 
+// extending a prototype 
 
-var age = myArray[1];
-console.log(age); // 12
+// prototypes can extend another prototype with more functionality
+// to inherit a prototype, set the __proto__ property of an object to the parent prototype
 
-myArray[2] = true;
-console.log(myArray[2]); // true
-
-console.log(myArray.length); // 3
-
-// when reading an array by its index, arrayVar[index] will return undefined if the infex is out of bounda
-
-var a = ['cat', 'dog', 'banana'];
-console.log(a[4]); // undefined 
-console.log(a[-9]); // undefinied
-
-a[4] = 'panda' // writing an undefined element adds it to the index
-console.log(a[4]); // "panda"
-// however, asking for an element that doesn't exist only produces undefined
-console.log(a[3]); // undefined (because [3] doesn't exist, the index goes 0,1,2,etc.)
-
-a[-5] = 'elephant'; // the above rule applies even for negative numbers
-console.log(a[-5]); // "elephant"
-
-//how many elements are now in [a]?
-console.log(a);
-// (5) ["cat", "dog", "banana", undefined x 1, "panda", -5: "elephant"]
-
-// we can add elements to an Array (not fixed length), using push() and unshift()
-// push() adds elements to the end of the array, while unshift() adds elements to the beginning of an array
-
-var myArray = ['car', 'bike'];
-
-myArray.push('scooter');
-console.log(myArray); // car, bike, scooter
-
-myArray.unshift('train');
-console.log(myArray); // train, car, bike, scooter
-
-// we can also remove elements from an array using pop() or shift()
-// pop() will remove and return an element from the end of the array
-// shift() will remove and return an element from the begnning of an array
-
-var myArray = ['train', 'car', 'bike', 'scooter'];
-
-var vehicle = myArray.pop();
-console.log(vehicle);  // scooter
-console.log(myArray); // train, car, bike
-
-vehicle = myArray.shift();
-console.log(vehicle);  // train
-console.log(myArray);  // car, bike
-
-// objects -> used to store key-value pairs
-// we consider these values to be "properties" and they can be accessed using the myObject.property or array notation myObject['property]
-
-var person = {
-    name: 'John Doe',
-    age: 25,
-    isMale: true,
-    personality: ['patient', 'loyal', 'happy'],
-    company: { name: 'edX', id: 2984 }
+function Student (name, age, school) {
+    this.__proto__ = new Person(name, age);
+    this.school = school;
 }
 
-console.log(person.age); // 25
-console.log(person['company'].id) // 2984
+var sarahBrown = new Student('Sarah Brown', 17, 'PennX');
 
-// you can modify (add to) objects even after the initial declaration
+sarahBrown.greeting(); //Hello! My name is Sarah Brown
+sarahBrown instanceof Person; // true
 
-var pet = {
-    name: 'Cooper',
-    type: 'dog'
+// prototype properties
+
+// properties and methods can be added to prototypes by adding them to thep prototype property
+
+var Person = function (name, age, occupation) {
+    this.name = name;
+    this.age = age;
+    this.occupation = occupation;
 }
 
-console.log(pet.age); // undefined
-pet.age = 11;
-console.log(pet.age); // 11
-
-pet['status'] = 'good boy';
-console.log(pet.status); // "good boy"
-
-// conditional statements
-
-var a = 1
-var b = 3
-
-var max; // undefined
-
-if (a > b) {
-    max = a;
-}
-else {
-    max = b;
+Person.prototype.planet = 'Earth';
+Person.prototype.introduction = function () {
+    return 'I am a ' + this.occupation;
 }
 
-console.log(max); 
+var johnDoe = new Person('John Doe', 32, 'Dentist');
 
-// comparison operators 
-// == equal to, === equal to and same type, != not equal to,
-// !== not equal to and different type, > greater than, 
-// >= greater than or equal to, < less than, <= less than or equal to
-
-// logical operators 
-// | | logical OR, && logical AND, ! logical NOT 
-
-// use double equals (==) when you only want to compare VALUES
-1 == '1' // true
-
-// use triple equals (===) when you want to compare VALUES and TYPEs
-1 === '1' // false! different types
-
-
-// comparing truthy/falsy values
-// remember, any value can be used as a boolean
-// "falsy" values: null, undefined, 0, NaN, ''
-// "truthy" value: 'cow', 'false', 5, etc...
-
-// var x; // undefined 
-// if (x) (...) // false! undefined falsy
-
-// x = 0;
-// if (x) (...) // false! 0 is falsy
-
-// var y = null;
-// var z; // undefined
-
-// if (y == z) (...) // true! falsy equals falsy
-// if (y === z) (...) // false! different types 
-
-// when comparing a number to a string in JavaScript, it will convert the string to a numeric form
-5 < '20' // true
-'5' < 20 // true
-5 > 'alligator' // (alligator gets converted to NaN, therefore) also false!
-'zebra' > 'giraffe' // true
-
-//comparing objects:  objects are only considered equal if the variables are aliases, i.e. refer to the same object
-
-var cooper = { age: 11 }
-var flanders = { age: 11 }
-
-// if (cooper == flanders) {...} // false!
-
-var myDog = cooper;
-
-// if (myDog == cooper) {...} // true!
+johnDoe.planet; // Earth
+johnDoe.introduction(); // I am a Dentist
  
