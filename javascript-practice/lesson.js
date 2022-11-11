@@ -445,3 +445,5 @@ chars.search(/[^0-9a-z]/); // 6
 /^[a-z][0-9][a-z]$/.test['a1b']; // true
 /^[a-z][0-9][a-z]$/.test['a1b2c'];  // false 
 /^[a-z][0-9a-z]*[a-z]$/.test['a1b2c']; // true 
+
+// String representations can be convered back to objects via JSON.parse(jsonString)
