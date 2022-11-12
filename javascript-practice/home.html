@@ -4,7 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS for jQuery error message example-->
+    <style>
+        .errorText {
+            color: red;
+        }
+
+        .errorBox {
+            border: 2px solid red;
+        }
+
+        .goodBox {
+            border: 2px solid green;
+        }
+    </style>
+
     <title>Document</title>
+
+     <!-- Imbed jQuery into the page -->
+
+     <script src="jQueryFile.js"></script>
+     <!-- $("*") selects all elements-->
+     <!-- $(this) selects the current element-->
+     <!-- $("div") selects all <div> elements-->
+     <!-- $(".title") selects all elements with the class="title"-->
+     <!-- $("#name") selects the element with id="name"-->
+ 
+     <!-- jQuery DOM manipulation-->
+     <!-- $(selector).action(arguments) - the general format to manipulate DOM contents-->
+     <!-- $("name").html("Hello"); (example 1)-->
+     <!-- $("name").append(" World!"); (example 2)-->
+     <!-- $("name").addClass("greeting"); (example 3)-->
+     <!-- $("name").hide(); to hide the element-->
+     <!-- $("name").show(); to show the element-->
+     <!-- $(selector).event(callback) - the general format to add an event listener to an element-->
 </head>
 <body>
     <h2>This is my first JavaScript Practice webpage</h2>
@@ -69,5 +102,299 @@
         myLastVisit.numVisits = timesVisited;
         localStorage.lastVisit = JSON.stringify(myLastVisit);
     </script>
+
+    <!-- DOM events -->
+    <button id="clickMe">Click Me!</button>
+    <p>
+    You've clicked the button <span id="numClicks">0 times</span>.
+    
+    <script>
+        var clicks = 0;
+
+        function clickHandler() { 
+            clicks++;
+            var numClicksSpan = document.getElementById('numClicks');
+            if (clicks == 1)
+                numClicksSpan.innerHTML = 'once';
+            else
+                numClicksSpan.innerHTML = click + ' times';
+        }
+
+        var button = document.getElementById('clickMe');
+        button.addEventListener('click', clickHandler);
+    </script>
+
+    <!-- DOM event - Mouse Hover Over -->
+
+    <div id="mouseOverMe">Put the mouse here!</div> <p>
+    <div class="highlightText">This is some text</div> <p>
+    <div> This is some other text. </div> <p>
+    <div class="highlightText"> This text is important, too</div>
+
+    <script>
+        function makeBold() {
+            var divs = document.getElementsByClassName('highlightText');
+            for (var i = 0; i < divs.length; i++) {
+                divs[i].style.color = 'red';
+                divs[i].style.fontWeight = 'normal';
+            }
+        }
+
+        var mouseOverMeDiv = document.getElementById('mouseOverMe');
+        mouseOverMeDiv.addEventListener('mouseover', makeBold);
+        mouseOverMeDiv.addEventListener('mouseout', restore);
+    </script>
+
+    <!-- DOM event - user Input -->
+
+    <input id="nameInput"></input>
+    <p>
+    Hello, <span id="nameField">guest</span>
+
+    <script>
+        function nameHandler(e) {
+            if (e.keyCode == 13) {
+                var nameInput = document.getElementById('nameInput');
+                var nameField = document.getElementById('nameField');
+                nameField.innerHTML = nameInput.value;
+                nameField.style.backgroundColor = 'cyan';
+                nameField.style.textTransform = 'capitalize';
+            }
+        }
+
+    document.addEventListener('keyup', nameHandler);
+    </script>
+
+    <!-- jQuery script -->
+
+    <button id="clickMe">Click Me!</button>
+    <p> You've clicked the button <span id="numClicks">0 times</span></p>
+
+    <script>
+        var clicks = 0;
+
+        function clickHandler() {
+            clicks++;
+            var numClicksSpan = $('#numClicks');
+            if (clicks == 1)
+                numClicksSpan.html('once');
+            else
+                numClicksSpan.html(clicks + ' times');
+        }
+
+        $('#clickMe').click(clickHandler);
+    </script>
+
+    <!-- jQuery user input -->
+
+    <input id="itemField"></input>
+    </p>
+
+    <ul>
+        <span id="list"></span>
+    </ul>
+
+    <script>
+        function keyPressHandler(e) {
+            if (e.keyCode == 13) {
+                $('#list').append('<li>'  + $('#itemField').val() + '</li>');
+                $('#itemField').val('');
+            }
+        }
+
+        $('#itemField').keyup(keyPressHandler);
+    </script>
+
+    <!-- jQuery - access multiple elements on the page -->
+
+    <ul>
+        <li>dog</li>
+        <li>cat</li>
+        <li>elephant</li>
+        <li>bear</li>
+    </ul>
+
+    <script>
+        $('li').click(function() {
+            $(this).css('font-weight', 'bold');
+        });
+    </script>
+
+    <!-- jQuery event handling -->
+
+    <ul>
+        <li>dog</li>
+        <li>cat</li>
+        <li>elephant</li>
+        <li>bear</li>
+    </ul>
+
+    <script>
+        $('li').hover(
+            function() {
+            $(this).css('color', 'red');
+            $(this).css('font-size', '120%');
+        }),
+            function() {
+            $(this).css('color', 'black');
+            $(this).css('font-size', '100%');
+        };
+    </script>
+
+    <!-- jQuery - combine multiple callback functions using the 'on' event-->
+
+    <ul>
+        <li>dog</li>
+        <li>cat</li>
+        <li>elephant</li>
+        <li>bear</li>
+    </ul>
+
+    <script>
+        $('li').on({
+            mouseenter: function() {
+                $(this).css('color', 'red');
+                $(this).css('font-size', '120%');
+            },
+            mouseleave: function() {
+                $(this).css('color', 'black');
+                $(this).css('font-size', '100%');
+            },
+            click: function() {
+                $(this).css('background-color', 'yellow');
+            }
+        });
+
+
+    </script>
+
+    <!-- jQuery Specify this function of only SOME list items -->
+
+    <ul>
+        <li class="highlight">dog</li>
+        <li class="highlight">cat</li>
+        <li class="highlight">elephant</li>
+        <li class="highlight">bear</li>
+    </ul>
+
+    <ul>
+        <li>canary</li>
+        <li>eagle</li>
+    </ul>
+
+    <script>
+        $("ul.highlight").find("li").on({
+            mouseenter: function() { },
+            mouseleave: function() { },
+            clicl: function() { }
+        });
+    </script>
+
+    <!-- jQuery advanced selectors-->
+    <!-- $(someNodes).find(selector) will search someNodes' children for selector -->
+
+    <!-- (user events in the browser)-->
+    <!-- event type: mouse, events: click, dblclick, mousedown, mouseup, mouseover, mouseout-->
+    <!-- event type: keyboard, events: keydown, keypress, keyup -->
+    <!-- event type: form, events: focus, blur, change, reset, submit -->
+    <!-- event type: window/element, events: load,resize, scroll, unload -->
+<form>
+    <select name="choose">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+    <p>
+    <input type="radio" name="species" value="dog">Dog</input>
+    <input type="radio" name="species" value="cat">Cat</input>
+    <input type="radio" name="species" value="bird">Bird</input>
+    </p>
+    <p>
+    <input type="checkbox" value="happy">Happy</input>
+    <input type="checkbox" value="cute">Cute</input>
+    <input type="checkbox" value="smart">Smart</input>
+    </p>
+
+</form>
+
+<p>I'd like to buy a new <span id="featureSpan"></span><span id="genderSpan"></span><span id="speciesSpan"></span></p>
+
+<script>
+    // handling select box
+    $("select[name='choose']").change(function() {
+        $('#genderSpan').html($(this).val());
+    });
+
+    // handling radio buttons
+    $("input:radio[name='species']").change(function() {
+        if ($(this).prop('checked')) {
+            $('#speciesSpan').html($(this).val());
+        }
+    });
+    
+    var allChecked = [];
+
+    $('input:checkbox').change(function() {
+        var value = $(this).val();
+        if ($(this).prop('checked')) {
+            allChecked.push(value);
+        }
+        else {
+            var index = allChecked.indexOf(value);
+            if (index != -1)
+                allChecked.splice(index, 1);
+        }
+        $('#featureSpan').html('');
+        for (var i = 0; i < allChecked.length; i++) {
+            $('#featureSpan').append(allChecked[i]);
+            if (i < allChecked.length - 1)
+            $('#featureSpan').append(', ');
+            else
+            $('#featureSpan').append(' ');
+        }
+    });
+</script>
+
+    <!-- jQuery user input / error messages-->
+
+    <input type="password" name="password"></input>
+    <br>    
+    <span id="errorMessage" class="errorText" hidden>Please fix the following errors:</span>
+    <ul>
+        <li id="needsNumber" class="errorText" hidden>The password must contain a number</li>
+        <li id="atLeast10Chars" class="errorText" hidden>The password must be at least 10 characters</li>
+    </ul>
+
+    <span id="successMessage" hidden>The password is okay!</span>
+
+    <p>
+    <button name="submit">Validate Password</button>
+
+<script>
+    $("button[name='submit']").click(function() {
+        var passwordField = $("input[name='password']");
+        var password = passwordField.val();
+        var isOkay = true;
+        if (password.length < 10) {
+            isOkay = false;
+            $('#atLeast10Chars').show();
+        }
+        if (/\d/.test(password) == false) {
+            isOkay = false;
+            $('#needsNumber').show();
+        }
+        if (isOkay == false) {
+            $('#successMessage').hide();
+            $('#errorMessage').show();
+            passwordField.removeClass("goodBox").addClass("errorBox");
+        }
+        else { //isOkay = true
+            $('.errorText').hide();
+            $('#successMessage').show();
+            passwordField.removeClass("errorBox").addClass("goodBox");
+        }
+        return false;
+    });
+</script>
+
 </body>
 </html>
